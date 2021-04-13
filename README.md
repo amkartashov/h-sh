@@ -29,3 +29,31 @@ See [EFI/Readme.md](EFI/Readme.md)
 * Yandex Disk
 
 * Docker for Mac
+
+* Golang
+
+* Gcloud SDK
+
+* AWS CLI
+
+* Node.js + Yarn
+
+* Homebrew
+    * azure-cli
+    * argocd
+    * wget
+    * pulumi
+
++ also from `scripts/`
+
+## Configuration
+
+## Issues
+
+### Fixed
+
+* iterm2 home/end does not work: set `TERM` to `screen-256color`
+
+### Pending (TODO)
+
+* red quits alternative for sublime text for hot exit to work
