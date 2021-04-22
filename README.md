@@ -43,10 +43,22 @@ See [EFI/Readme.md](EFI/Readme.md)
     * argocd
     * wget
     * pulumi
+    * bash (to replace built-in), see https://itnext.io/upgrading-bash-on-macos-7138bd1066ba
+    * bash-completion@2
+    * git
+    * fzf
+    * alt-tab
+    * telnet
+    * coreutils https://stackoverflow.com/a/57973942
+    * bazel (for bash completion mostly)
 
 + also from `scripts/`
 
 ## Configuration
+
+```bash
+chsh -s /bin/bash
+```
 
 ## Issues
 
