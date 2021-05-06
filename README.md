@@ -51,6 +51,7 @@ See [EFI/Readme.md](EFI/Readme.md)
     * telnet
     * coreutils https://stackoverflow.com/a/57973942
     * bazel (for bash completion mostly)
+    * tilt (https://docs.tilt.dev/install.html)
 
 + also from `scripts/`
 
