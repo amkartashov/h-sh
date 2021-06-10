@@ -41,6 +41,8 @@ See [EFI/Readme.md](EFI/Readme.md)
 * Homebrew
     * azure-cli
     * argocd
+    * bazelisk
+    * buildifier, buildozer
     * wget
     * pulumi
     * bash (to replace built-in), see https://itnext.io/upgrading-bash-on-macos-7138bd1066ba
