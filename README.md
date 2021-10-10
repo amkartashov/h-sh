@@ -4,7 +4,7 @@ Repository describing hackintosh configuration
 
 ## MacOS installation
 
-See [EFI/Readme.md](EFI/Readme.md)
+See [EFI/README.md](EFI/README.md)
 
 ## Installed software
 
