@@ -2,9 +2,17 @@
 
 Based on <https://github.com/ruibeard/OpenCore-ASRock-Z490M-ITX-ac>.
 
-Works with MacOS BigSur 11.6 and OpenCore 0.7.8.
+OpenCore 0.7.8, works with MacOS BigSur 11.6 and Monterey 12.2.1.
 
-## HARDWARE
+* [Hardware](#hardware)
+* [Issues](#issues)
+* [Upgrade](#upgrade)
+  * [Review opencore files](#review-opencore-files-to-update-download-new-versions)
+  * [Update config.plist](#update-efiocconfigplist)
+  * [Boot from USB](#boot-from-usb-first)
+  * [Update host EFI and reboot](#update-host-efi-and-reboot)
+
+## Hardware
 
 * Motherboard: ASRock Z490M Pro4
 * CPU: Intel Core i7-10700K OEM
@@ -22,7 +30,7 @@ Works with MacOS BigSur 11.6 and OpenCore 0.7.8.
 
 ## Upgrade
 
-[OpenCore update guide](https://dortania.github.io/OpenCore-Post-Install/universal/update.html)
+Check [OpenCore update guide](https://dortania.github.io/OpenCore-Post-Install/universal/update.html).
 
 ### Review opencore files to update, download new versions
 
@@ -46,9 +54,7 @@ Works with MacOS BigSur 11.6 and OpenCore 0.7.8.
 
 ### Update `EFI/OC/config.plist`
 
-* [MountEFI](https://github.com/corpnewt/MountEFI)
-
-[OpenCore config.plist description](https://dortania.github.io/OpenCore-Install-Guide/config.plist/comet-lake.html)
+See [OpenCore config.plist description](https://dortania.github.io/OpenCore-Install-Guide/config.plist/comet-lake.html)
 
 1. Compare [config.plist](EFI/OC/config.plist) with `Sample.plist` from opencore with [OCConfigCompare](https://github.com/corpnewt/OCConfigCompare)
 
@@ -109,7 +115,7 @@ Works with MacOS BigSur 11.6 and OpenCore 0.7.8.
     Completed validating /Users/me/git/amkartashov/h-sh/EFI/OC/config.plist in 1 ms. Found 1 issue requiring attention.
     ```
 
-#### Boot from USB first
+### Boot from USB first
 
 1. Mount USB EFI with MountEFI
 
@@ -123,7 +129,7 @@ Works with MacOS BigSur 11.6 and OpenCore 0.7.8.
 4. Update PlatformInfo fields in new `config.plist` on USB: set old values for `SystemSerialNumber`, `MLB`, `SystemUUID` and `ROM`.
 5. Try boot from USB now
 
-#### Update host EFI and reboot
+### Update host EFI and reboot
 
 0. Check disks with `diskutil list`
 
