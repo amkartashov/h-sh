@@ -1,8 +1,8 @@
 # EFI
 
-Based on https://github.com/ruibeard/OpenCore-ASRock-Z490M-ITX-ac
+Based on <https://github.com/ruibeard/OpenCore-ASRock-Z490M-ITX-ac>.
 
-Works with MacOS BigSur 11.6 and OpenCore 0.7.4.
+Works with MacOS BigSur 11.6 and OpenCore 0.7.8.
 
 ## HARDWARE
 
@@ -22,43 +22,142 @@ Works with MacOS BigSur 11.6 and OpenCore 0.7.4.
 
 ## Upgrade
 
-opencore files to update:
+[OpenCore update guide](https://dortania.github.io/OpenCore-Post-Install/universal/update.html)
 
-* https://github.com/acidanthera/OpenCorePkg/releases/download/0.7.4/OpenCore-0.7.4-RELEASE.zip
-    EFI/BOOT/BOOTx64.efi
-    EFI/OC/OpenCore.efi
-    EFI/OC/Drivers/OpenRuntime.efi
-    EFI/OC/Tools/OpenShell.efi
+### Review opencore files to update, download new versions
 
-* https://github.com/acidanthera/OcBinaryData/raw/master/Drivers/HfsPlus.efi EFI/OC/Drivers/HfsPlus.efi
+* from [OpenCore-0.7.8-RELEASE.zip](https://github.com/acidanthera/OpenCorePkg/releases/download/0.7.8/OpenCore-0.7.8-RELEASE.zip)
+  * `EFI/BOOT/BOOTx64.efi`
+  * `EFI/OC/OpenCore.efi`
+  * `EFI/OC/Drivers/OpenRuntime.efi`
+  * `EFI/OC/Tools/OpenShell.efi`
+* [HfsPlus.efi](https://github.com/acidanthera/OcBinaryData/raw/master/Drivers/HfsPlus.efi) -> `EFI/OC/Drivers/HfsPlus.efi`
+* `EFI/OC/Kexts/`
+  * [AppleALC.kext](https://github.com/acidanthera/AppleALC/releases/download/1.6.9/AppleALC-1.6.9-RELEASE.zip)
+  * [CpuTscSync.kext](https://github.com/acidanthera/CpuTscSync/releases/download/1.0.6/CpuTscSync-1.0.6-RELEASE.zip)
+  * [FakePCIID.kext](https://bitbucket.org/RehabMan/os-x-fake-pci-id/downloads/RehabMan-FakePCIID-2018-1027.zip)
+  * [FakePCIID_Intel_HDMI_Audio.kext](https://bitbucket.org/RehabMan/os-x-fake-pci-id/downloads/RehabMan-FakePCIID-2018-1027.zip)
+  * [IntelMausi.kext, IntelSnowMausi.kext](https://github.com/acidanthera/IntelMausi/releases/download/1.0.7/IntelMausi-1.0.7-RELEASE.zip)
+  * [Lilu.kext](https://github.com/acidanthera/Lilu/releases/download/1.6.0/Lilu-1.6.0-RELEASE.zip)
+  * [NVMeFix.kext](https://github.com/acidanthera/NVMeFix/releases/download/1.0.9/NVMeFix-1.0.9-RELEASE.zip)
+  * [SMCProcessor.kext, SMCSuperIO.kext, VirtualSMC.kext](https://github.com/acidanthera/VirtualSMC/releases/download/1.2.8/VirtualSMC-1.2.8-RELEASE.zip)
+  * `USBMap.kext` generated with [USBMap](https://github.com/corpnewt/USBMap) - no need to update
+  * [WhateverGreen.kext](https://github.com/acidanthera/WhateverGreen/releases/download/1.5.7/WhateverGreen-1.5.7-RELEASE.zip)
 
-* EFI/OC/config.plist with https://github.com/corpnewt/OCConfigCompare and opencore install guide and https://github.com/corpnewt/ProperTree and https://dortania.github.io/OpenCore-Install-Guide/config.plist/comet-lake.html#acpi and ocvalidate
+### Update `EFI/OC/config.plist`
 
-* kexts
+* [MountEFI](https://github.com/corpnewt/MountEFI)
 
-/Volumes/EFI/EFI/OC/Kexts/AppleALC.kext https://github.com/acidanthera/AppleALC/releases/download/1.6.5/AppleALC-1.6.5-RELEASE.zip
+[OpenCore config.plist description](https://dortania.github.io/OpenCore-Install-Guide/config.plist/comet-lake.html)
 
-/Volumes/EFI/EFI/OC/Kexts/CpuTscSync.kext https://github.com/acidanthera/CpuTscSync/releases/download/1.0.5/CpuTscSync-1.0.5-RELEASE.zip
+1. Compare [config.plist](EFI/OC/config.plist) with `Sample.plist` from opencore with [OCConfigCompare](https://github.com/corpnewt/OCConfigCompare)
 
-/Volumes/EFI/EFI/OC/Kexts/FakePCIID.kext https://bitbucket.org/RehabMan/os-x-fake-pci-id/downloads/RehabMan-FakePCIID-2018-1027.zip
+    Possible output:
 
-/Volumes/EFI/EFI/OC/Kexts/FakePCIID_Intel_HDMI_Audio.kext https://bitbucket.org/RehabMan/os-x-fake-pci-id/downloads/RehabMan-FakePCIID-2018-1027.zip
+    ```bash
+    Checking for values missing from User plist:
 
-/Volumes/EFI/EFI/OC/Kexts/IntelMausi.kext https://github.com/acidanthera/IntelMausi/releases/download/1.0.7/IntelMausi-1.0.7-RELEASE.zip
+    config.plist -> Booter -> Quirks - Missing Key: ResizeAppleGpuBars
+    config.plist -> Misc -> BlessOverride -> From|To-Array - Empty: Skipped
+    config.plist -> NVRAM -> Delete -> 4D1EDE05-38C7-4A6A-9CC6-4BCCA8B38C14 -> From-Array - Non-Dictionary Children: Skipped
+    config.plist -> NVRAM -> Delete -> 4D1FDA02-38C7-4A6A-9CC6-4BCCA8B30102 -> From-Array - Non-Dictionary Children: Skipped
+    config.plist -> NVRAM -> Delete -> 7C436110-AB2A-4BBB-A880-FE41995C9F82 -> From-Array - Non-Dictionary Children: Skipped
+    config.plist -> NVRAM -> LegacySchema -> 7C436110-AB2A-4BBB-A880-FE41995C9F82 -> From-Array - Non-Dictionary Children: Skipped
+    config.plist -> NVRAM -> LegacySchema -> 8BE4DF61-93CA-11D2-AA0D-00E098032B8C -> From-Array - Non-Dictionary Children: Skipped
+    config.plist -> UEFI -> AppleInput - Missing Key: PointerPollMask
+    config.plist -> UEFI -> AppleInput - Missing Key: PointerPollMax
+    config.plist -> UEFI -> AppleInput - Missing Key: PointerPollMin
+    config.plist -> UEFI -> Audio - Missing Key: AudioOutMask
+    config.plist -> UEFI -> Audio - Missing Key: DisconnectHda
+    config.plist -> UEFI -> Audio - Missing Key: MaximumGain
+    config.plist -> UEFI -> Audio - Missing Key: MinimumAssistGain
+    config.plist -> UEFI -> Audio - Missing Key: MinimumAudibleGain
+    config.plist -> UEFI -> Output - Missing Key: ReconnectGraphicsOnConnect
+    config.plist -> UEFI -> Output - Missing Key: UIScale
+    config.plist -> UEFI -> Quirks - Missing Key: EnableVmx
+    config.plist -> UEFI -> Quirks - Missing Key: ResizeGpuBars
+    
+    Checking for values missing from Sample:
+    
+    Sample.plist -> DeviceProperties -> Add - Missing Key: PciRoot(0x0)/Pci(0x1C,0x1)/Pci(0x0,0x0)
+    Sample.plist -> DeviceProperties -> Add - Missing Key: PciRoot(0x0)/Pci(0x1F,0x3)
+    Sample.plist -> DeviceProperties -> Add - Missing Key: PciRoot(0x0)/Pci(0x2,0x0)
+    Sample.plist -> Misc -> BlessOverride -> From|To-Array - Empty: Skipped
+    Sample.plist -> NVRAM -> Add -> 4D1EDE05-38C7-4A6A-9CC6-4BCCA8B38C14 - Missing Key: UIScale
+    Sample.plist -> NVRAM -> Delete -> 4D1EDE05-38C7-4A6A-9CC6-4BCCA8B38C14 -> From-Array - Non-Dictionary Children: Skipped
+    Sample.plist -> NVRAM -> Delete -> 4D1FDA02-38C7-4A6A-9CC6-4BCCA8B30102 -> From-Array - Non-Dictionary Children: Skipped
+    Sample.plist -> NVRAM -> Delete -> 7C436110-AB2A-4BBB-A880-FE41995C9F82 -> From-Array - Non-Dictionary Children: Skipped
+    Sample.plist -> NVRAM -> LegacySchema -> 7C436110-AB2A-4BBB-A880-FE41995C9F82 -> From-Array - Non-Dictionary Children: Skipped
+    Sample.plist -> NVRAM -> LegacySchema -> 8BE4DF61-93CA-11D2-AA0D-00E098032B8C -> From-Array - Non-Dictionary Children: Skipped
+    Sample.plist -> UEFI -> Audio - Missing Key: AudioOut
+    Sample.plist -> UEFI -> Audio - Missing Key: MinimumVolume
+    Sample.plist -> UEFI -> Audio - Missing Key: VolumeAmplifier
+    ```
 
-/Volumes/EFI/EFI/OC/Kexts/IntelSnowMausi.kext https://github.com/acidanthera/IntelMausi/releases/download/1.0.7/IntelMausi-1.0.7-RELEASE.zip
+2. Update [config.plist](EFI/OC/config.plist) with [ProperTree](https://github.com/corpnewt/ProperTree).
 
-/Volumes/EFI/EFI/OC/Kexts/Lilu.kext https://github.com/acidanthera/Lilu/releases/download/1.5.6/Lilu-1.5.6-RELEASE.zip
+3. Validate [config.plist](EFI/OC/config.plist) with `ocvalidate` from opencore utilities.
 
-/Volumes/EFI/EFI/OC/Kexts/NVMeFix.kext https://github.com/acidanthera/NVMeFix/releases/download/1.0.9/NVMeFix-1.0.9-RELEASE.zip
+    Should be:
 
-/Volumes/EFI/EFI/OC/Kexts/SMCProcessor.kext https://github.com/acidanthera/VirtualSMC/releases/download/1.2.7/VirtualSMC-1.2.7-RELEASE.zip
+    ```bash
+    $ ./ocvalidate /Users/me/git/amkartashov/h-sh/EFI/OC/config.plist
 
-/Volumes/EFI/EFI/OC/Kexts/SMCSuperIO.kext https://github.com/acidanthera/VirtualSMC/releases/download/1.2.7/VirtualSMC-1.2.7-RELEASE.zip
+    PlatformInfo->Generic->SystemUUID is borked (Can only be empty, special string OEM or valid UUID)!
+    CheckPlatformInfo returns 1 error!
 
-/Volumes/EFI/EFI/OC/Kexts/USBMap.kext - generated with https://github.com/corpnewt/USBMap (no need to update)
+    Completed validating /Users/me/git/amkartashov/h-sh/EFI/OC/config.plist in 1 ms. Found 1 issue requiring attention.
+    ```
 
-/Volumes/EFI/EFI/OC/Kexts/VirtualSMC.kext https://github.com/acidanthera/VirtualSMC/releases/download/1.2.7/VirtualSMC-1.2.7-RELEASE.zip
+#### Boot from USB first
 
-/Volumes/EFI/EFI/OC/Kexts/WhateverGreen.kext https://github.com/acidanthera/WhateverGreen/releases/download/1.5.4/WhateverGreen-1.5.4-RELEASE.zip
+1. Mount USB EFI with MountEFI
 
+    ```bash
+    sudo mkdir /Volumes/usb-efi
+    sudo mount -t msdos /dev/disk4s1 /Volumes/usb-efi
+    ```
+
+2. Copy [PlatformInfo](https://dortania.github.io/OpenCore-Install-Guide/config.plist/comet-lake.html#platforminfo) from old `config.plist` on USB
+3. Update files
+4. Update PlatformInfo fields in new `config.plist` on USB: set old values for `SystemSerialNumber`, `MLB`, `SystemUUID` and `ROM`.
+5. Try boot from USB now
+
+#### Update host EFI and reboot
+
+0. Check disks with `diskutil list`
+
+1. Mount USB EFI
+
+    ```bash
+    sudo mkdir /Volumes/usb-efi
+    sudo mount -t msdos /dev/diskREPLACEs1 /Volumes/usb-efi
+    ```
+
+2. Mount host EFI with MountEFI
+
+    ```bash
+    sudo mkdir /Volumes/host-efi
+    sudo mount -t msdos /dev/disk0s1 /Volumes/host-efi
+    ```
+
+3. Copy EFI from USB to host
+
+    ```bash
+    mv /Volumes/host-efi/EFI{,.backup$(date +%F)}
+    cp -a /Volumes/{usb,host}-efi/EFI
+    ```
+
+4. Reboot
+
+You can check opencore version with:
+
+```bash
+$ # BEFORE
+$ nvram 4D1FDA02-38C7-4A6A-9CC6-4BCCA8B30102:opencore-version
+4D1FDA02-38C7-4A6A-9CC6-4BCCA8B30102:opencore-version REL-063-2020-11-02
+
+$ # AFTER
+$ nvram 4D1FDA02-38C7-4A6A-9CC6-4BCCA8B30102:opencore-version
+4D1FDA02-38C7-4A6A-9CC6-4BCCA8B30102:opencore-version REL-078-2022-02-07
+```
